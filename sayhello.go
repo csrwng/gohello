@@ -9,9 +9,19 @@ import (
 )
 
 func helloFunc(port string) http.HandlerFunc {
+	sprintf := func(w http.ResponseWriter, format string, args ...interface{}) {
+		w.Write([]byte(fmt.Sprintf(format, args...)))
+	}
 	return func(w http.ResponseWriter, r *http.Request) {
-		str := fmt.Sprintf("<html><body><h1>Hello World on Port %s</h1></body></html>", port)
-		w.Write([]byte(str))
+		sprintf(w, "<html><body><h1>Hello World on Port %s</h1>", port)
+		for k, v := range r.Header {
+			sprintf(w, "Header %s ==> %s<br />", k, v)
+		}
+		sprintf(w, "<br />")
+		for k, v := range r.URL.Query() {
+			sprintf(w, "Parameter %s ==> %s<br />", k, v)
+		}
+		sprintf(w, "</body></html>")
 	}
 }
 
