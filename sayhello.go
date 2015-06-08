@@ -31,6 +31,9 @@ func listenOn(port string) {
 }
 
 func main() {
+	time.Sleep(5 * time.Second)
+	fmt.Printf("FAILING container!!!\n")
+	os.Exit(-1)
 	ports := []string{"8080"}
 	if len(os.Args) > 1 {
 		ports = os.Args[1:]
