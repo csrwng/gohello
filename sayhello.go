@@ -14,7 +14,7 @@ func helloFunc(port string) http.HandlerFunc {
 	}
 	return func(w http.ResponseWriter, r *http.Request) {
 		sprintf(w, `<html><body>
-		<p>Version 1</p>
+		<p>Version 2</p>
 		<h1>Hello World on Port %s</h1>`, port)
 		for k, v := range r.Header {
 			sprintf(w, "Header %s ==> %s<br />", k, v)
